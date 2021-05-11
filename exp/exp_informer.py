@@ -126,7 +126,7 @@ class Exp_Informer(Exp_Basic):
         train_data, train_loader = self._get_data(flag = 'train')
         vali_data, vali_loader = self._get_data(flag = 'val')
         test_data, test_loader = self._get_data(flag = 'test')
-        print(train_data)
+   
 
         path = os.path.join(self.args.checkpoints, setting)
         if not os.path.exists(path):
@@ -151,6 +151,13 @@ class Exp_Informer(Exp_Basic):
             epoch_time = time.time()
             for i, (batch_x,batch_y,batch_x_mark,batch_y_mark) in enumerate(train_loader):
                 iter_count += 1
+                print("batch_x")
+                print(batch_x)
+                print("batch_y")
+
+                print(batch_y)
+                print("shape_y")
+                print(batch_y.shape)
                 
                 model_optim.zero_grad()
                 pred, true = self._process_one_batch(
@@ -262,13 +269,7 @@ class Exp_Informer(Exp_Basic):
     def _process_one_batch(self, dataset_object, batch_x, batch_y, batch_x_mark, batch_y_mark):
         batch_x = batch_x.float().to(self.device)
         batch_y = batch_y.float()
-        print("batch_x")
-        print(batch_x)
-        print("batch_y")
-       
-        print(batch_y)
-        print("shape_y")
-        print(batch_y.shape)
+
 
         batch_x_mark = batch_x_mark.float().to(self.device)
         batch_y_mark = batch_y_mark.float().to(self.device)
