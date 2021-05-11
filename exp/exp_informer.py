@@ -126,6 +126,7 @@ class Exp_Informer(Exp_Basic):
         train_data, train_loader = self._get_data(flag = 'train')
         vali_data, vali_loader = self._get_data(flag = 'val')
         test_data, test_loader = self._get_data(flag = 'test')
+        print(train_data)
 
         path = os.path.join(self.args.checkpoints, setting)
         if not os.path.exists(path):
