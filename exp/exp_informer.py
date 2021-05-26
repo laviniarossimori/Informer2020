@@ -277,14 +277,14 @@ class Exp_Informer(Exp_Basic):
         if self.args.use_amp:
             with torch.cuda.amp.autocast():
                 if self.args.output_attention:
-                    outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
+                    outputs = self.model(batch_x[:, :, :-1], batch_x_mark, dec_inp[:, :, :-1], batch_y_mark)[0]
                 else:
-                    outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+                    outputs = self.model(batch_x[:, :, :-1], batch_x_mark, dec_inp[:, :, :-1], batch_y_mark)
         else:
             if self.args.output_attention:
-                outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)[0]
+                outputs = self.model(batch_x[:, :, :-1], batch_x_mark, dec_inp[:, :, :-1], batch_y_mark)[0]
             else:
-                outputs = self.model(batch_x, batch_x_mark, dec_inp, batch_y_mark)
+                outputs = self.model(batch_x[:, :, :-1], batch_x_mark, dec_inp[:, :, :-1], batch_y_mark)
         if self.args.inverse:
             outputs = dataset_object.inverse_transform(outputs)
         f_dim = -1 if self.args.features=='MS' else 0
